@@ -249,6 +249,8 @@ async def upload_file_via_url(
         sse_manager.emit(project_id, "files_changed")
         return {"message": "PDF uploaded and saved!", "pdf_id": str(new_file.id)}
 
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail="Could not download from the link: " + str(e))
 

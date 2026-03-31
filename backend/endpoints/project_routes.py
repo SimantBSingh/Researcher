@@ -9,6 +9,7 @@ from utils.sse_manager import sse_manager
 from models.UserModel import User
 from models.ProjectModel import Project, ProjectShare
 from models.TemplateModel import Template, TemplateFolder
+from models.FolderModel import Folder
 from models.schema import ProjectCreate, ProjectNameUpdate, ProjectSchema, ProjectShareUpdate, ProjectShareSchema, SharedUser
 
 from database import get_db
@@ -35,7 +36,15 @@ def create_project(
         if db_template:
             db_project.template_id = db_template.id
 
+        print(db_template)
         db.add(db_project)
+        db.flush()  # get db_project.id before creating folders
+
+        if db_template:
+            template_folders = db.query(TemplateFolder).filter(TemplateFolder.template_id == db_template.id).all()
+            for tf in template_folders:
+                db.add(Folder(name=tf.name, project_id=db_project.id, parent_id=None))
+
         db.commit()
         db.refresh(db_project)
         return db_project

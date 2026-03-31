@@ -25,32 +25,23 @@ export default function FileFolderModal({
   actionType,
 }) {
   const [name, setName] = useState("");
-  // const [fullName, setFullName] = useState('');
+  const [extension, setExtension] = useState("");
 
   useEffect(() => {
     if (currentDocumentName && currentDocumentName.length > 0) {
       if (currentDocumentName.includes(".")) {
-        setName(
-          currentDocumentName.substring(0, currentDocumentName.lastIndexOf("."))
-        );
+        const lastDot = currentDocumentName.lastIndexOf(".");
+        setName(currentDocumentName.substring(0, lastDot));
+        setExtension(currentDocumentName.substring(lastDot));
       } else {
         setName(currentDocumentName);
+        setExtension("");
       }
     }
   }, [currentDocumentName]);
 
   const handleSaveData = () => {
-    // if (!prepopulate || prepopulate.length === 0 ) {
-    //     saveData([name, type, 'create']);
-    // } else if (prepopulate !== name) {
-    //     saveData([name+fullName.substring(fullName.lastIndexOf('.'), fullName.length), type, 'update']);
-    // }
-
-    // if (actionType === ActionTypes.CREATE) {
-    //     saveData(name, actionType)
-    // } else if (actionType === ActionTypes.EDIT) {
-    saveData(name);
-    // }
+    saveData(name + extension);
     closeModal();
   };
 
