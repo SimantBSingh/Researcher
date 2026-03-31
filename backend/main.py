@@ -30,10 +30,10 @@ async def startup():
     sse_manager.set_loop(asyncio.get_event_loop())
 
 origins = [
-    # "https://research-dashboard-pied.vercel.app",
-    "http://localhost:3000",
-    "http://localhost:8000",
-    # "https://research-dashboard.onrender.com",
+    "https://researcher-flax.vercel.app",
+    # "http://localhost:3000",
+    # "http://localhost:8000",
+    "https://researcher-ql3o.onrender.com",
 ]
 
 app.add_middleware(

@@ -51,7 +51,7 @@ module.exports = {
     proxy: [
       {
         context: ["/api", "/auth"],
-        target: "https://research-dashboard.onrender.com",
+        target: "https://researcher-ql3o.onrender.com",
         secure: true,
         changeOrigin: true, // Adjust Host header to match target
         logLevel: "debug" // See proxy activity in console
