@@ -110,9 +110,16 @@ def fetch_arxiv_title(arxiv_id):
     response = requests.get(f"{ARXIV_API_URL}{arxiv_id}")
     if response.status_code == 200:
         xml_content = response.text
-        start = xml_content.find('<title>') + 7
-        end = xml_content.find('</title>', start)
-        return xml_content[start:end].strip()
+        # The first <title> is the feed title ("arXiv Query: ...").
+        # The paper title is inside <entry><title>...</title></entry>.
+        entry_start = xml_content.find('<entry>')
+        if entry_start == -1:
+            return None
+        title_start = xml_content.find('<title>', entry_start) + 7
+        title_end = xml_content.find('</title>', title_start)
+        if title_start == 6 or title_end == -1:  # 7-1=6 means find returned -1
+            return None
+        return xml_content[title_start:title_end].strip()
     return None
 
 

@@ -159,7 +159,7 @@ class FileCreate(FileBase):
     
 class FileUpload(BaseModel):
     pdf_url: str
-    parent_folder_id: str
+    parent_folder_id: Optional[str] = None
     project_id: int
     
     
