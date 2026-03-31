@@ -29,12 +29,7 @@ app = FastAPI()
 async def startup():
     sse_manager.set_loop(asyncio.get_event_loop())
 
-origins = [
-    "https://researcher-flax.vercel.app",
-    # "http://localhost:3000",
-    # "http://localhost:8000",
-    "https://researcher-ql3o.onrender.com",
-]
+origins = [o.strip() for o in Config.FRONTEND_URL.split(",")]
 
 app.add_middleware(
     CORSMiddleware,
