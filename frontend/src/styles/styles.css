@@ -1,0 +1,8 @@
+.MuiPickersDay-root:focus, 
+.MuiPickersDay-root.Mui-selected {
+  background-color: transparent !important;
+  color: inherit !important;
+  box-shadow: none !important;
+}
+
+
